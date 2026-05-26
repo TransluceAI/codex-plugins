@@ -1,0 +1,30 @@
+{
+  "name": "docent",
+  "version": "0.1.1",
+  "description": "Docent AI analysis tools for Codex.",
+  "author": {
+    "name": "Transluce",
+    "url": "https://transluce.org"
+  },
+  "homepage": "https://docs.transluce.org",
+  "repository": "https://github.com/TransluceAI/docent",
+  "license": "Apache-2.0",
+  "keywords": ["docent", "agent-analysis", "research", "mcp"],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Docent",
+    "shortDescription": "Analyze agent behavior with Docent.",
+    "longDescription": "Use Docent skills and MCP tools from Codex to analyze agent runs and ingest new trace collections.",
+    "developerName": "Transluce",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write"],
+    "websiteURL": "https://docs.transluce.org",
+    "defaultPrompt": [
+      "Use Docent to analyze this collection of agent runs.",
+      "Use Docent to investigate a regression between two agent checkpoints.",
+      "Use Docent to ingest evaluation transcripts into a new collection."
+    ],
+    "brandColor": "#2563EB"
+  }
+}

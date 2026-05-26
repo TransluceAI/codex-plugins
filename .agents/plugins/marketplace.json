@@ -1,0 +1,20 @@
+{
+  "name": "transluce-plugins",
+  "interface": {
+    "displayName": "Transluce Plugins"
+  },
+  "plugins": [
+    {
+      "name": "docent",
+      "source": {
+        "source": "local",
+        "path": "./plugins/docent"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
