@@ -64,11 +64,11 @@ client = Docent.from_url("https://docent.transluce.org/dashboard/668354d8-...")
 ```
 This parses the domain and collection ID from the URL automatically.
 
-The Docent SDK can be configured by a docent.env file in the working directory. The SDK will automatically discover and load a docent.env file if it exists. You do not need to explicitly source docent.env. Config files may use INI-style `[section]` headers for multi-profile support; select a profile with `Docent(profile="my-profile")` or the `DOCENT_PROFILE` environment variable.
+The Docent SDK can be configured by a `docent.env` file. The SDK searches from the current working directory upward through parent directories, then falls back to `~/.docent/docent.env` if no local file exists. You do not need to explicitly source `docent.env`. Config files may use INI-style `[section]` headers for multi-profile support; select a profile with `Docent(profile="my-profile")` or the `DOCENT_PROFILE` environment variable.
 
 If you're not sure what collection the user is talking about:
 * If the user provides a Docent dashboard URL (e.g., `https://docent.transluce.org/dashboard/668354d8-...`), use `Docent.from_url()` or extract the collection ID from the last path segment (the UUID).
-* Otherwise, check the `docent.env` file in the working directory for `DOCENT_COLLECTION_ID`.
+* Otherwise, check the SDK-discovered `docent.env` file for `DOCENT_COLLECTION_ID`.
 * If neither is available, ask the user to paste the collection UUID.
 
 The main Docent deployment lives at https://docent.transluce.org but the user may connect a different deployment by overriding DOCENT_FRONTEND_URL in docent.env. The Docent SDK will print out the frontend URL when it is initialized, e.g. `Authenticating Docent client with frontend_url='https://docent.transluce.org'`. If you see a different frontend URL, use that URL in place of `https://docent.transluce.org` for any links.
@@ -80,7 +80,7 @@ If you run into any issues or unexpected behavior with the Docent platform, paus
 * If authentication fails (HTTP 401) or no API key is configured, walk the user through setup:
   1. Open the API keys page for them: `open https://docent.transluce.org/settings/api-keys` (macOS) or `xdg-open https://docent.transluce.org/settings/api-keys` (Linux).
   2. Ask them to create a new API key (it will start with `dk_`).
-  3. Write the key to a `docent.env` file in the working directory: `DOCENT_API_KEY=dk_...` (plus `DOCENT_API_URL` and `DOCENT_FRONTEND_URL` if not using the default instance).
+  3. Write the key to a local `docent.env` file or `~/.docent/docent.env`: `DOCENT_API_KEY=dk_...` (plus `DOCENT_API_URL` and `DOCENT_FRONTEND_URL` if not using the default instance).
   4. Verify connectivity by constructing a `Docent()` client — the constructor validates the API key automatically.
 * If the SDK does not match what's documented here, check whether the SDK is up to date.
 * If the Docent MCP server is available but doesn't match the tools documented here, check whether the MCP server needs an upgrade (`uv tool upgrade docent`). If an upgrade was needed, ask the user to restart the session or MCP server.
@@ -322,7 +322,7 @@ ORDER BY cnt DESC
 
 These are specific rules that follow from the principles above. They apply throughout the analysis:
 
-* **Never present opaque Python computation as analysis results.** Orientation queries (Step 1) are for *your* understanding and can use `execute_dql()` and local Python. But once you move past orientation into actual analysis (Step 3), findings must go through Docent's inspectable pipeline — DQL query steps visible in the UI and LLM analyses with citable evidence. If the user's question requires categorization, comparison, or synthesis, use Docent analyses, not a Python script that outputs a table. The user has no way to verify, inspect, or drill into results that come from opaque code. Metadata aggregations via DQL are acceptable as supporting context (e.g., counts, averages), but the analytical conclusions should come from inspectable analyses the user can review in the Docent UI.
+* **Never present opaque Python computation as analysis results.** Orientation queries (Step 1) are for *your* understanding and can use `execute_dql()` and local Python. But once you move past orientation into actual analysis (Step 3), findings must go through Docent's inspectable pipeline — DQL query steps visible in the UI and analysis-plan readings with citable evidence. If the user's question requires categorization, comparison, or synthesis, use Docent analyses, not a Python script that outputs a table. The user has no way to verify, inspect, or drill into results that come from opaque code. Metadata aggregations via DQL are acceptable as supporting context (e.g., counts, averages), but the analytical conclusions should come from inspectable analyses the user can review in the Docent UI.
 * **Don't fall back to manual synthesis when an analysis step fails.** If a synthesis step fails (e.g., context overflow), fix the analysis design (batch it, sample it, use structured aggregation) and re-submit. Do not absorb the synthesis work into opaque Python scripts or agent-side summarization — this defeats the core value of Docent's inspectable, citable analysis. If you must do agent-side aggregation as a stopgap (e.g., counting structured output fields via a query), explicitly flag to the user that this step is not inspectable in the Docent UI and offer to re-run it properly.
 * If the user asks you to "read the agent runs", "summarize 10 transcripts", "classify the results", or similar, that not mean that you (the coding agent) should do so directly. Prefer to do this in an analysis plan using readings.
 * **Be transparent about reused work.** This has two parts:
