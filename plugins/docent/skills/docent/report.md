@@ -191,7 +191,7 @@ Attributes:
 Behavior: Uses the page's `collection_id` automatically. Shows row count, execution time, truncation info, and a toggle to show/hide the raw DQL.
 
 Authoring guidance:
-- Keep queries short, explicit, and cheap. Add `LIMIT` unless the full result set is needed.
+- Keep queries short, explicit, and cheap. Add `LIMIT` unless every row is genuinely needed.
 - Use the body to explain why this table matters, not to restate column names.
 - **Key pattern**: aggregate reading results via DQL rather than stating numbers in prose. A `::dql-table` computing a distribution is always preferable to "52% are X" in text, because the reader can inspect the query.
 
@@ -231,11 +231,7 @@ Use inline citations inside markdown sentences to link claims to specific eviden
 This claim is grounded in ::citation{type="reading_result" collection_id="collection-uuid" reading_result_id="reading-result-uuid"}.
 ```
 
-Use `short="true"` for a compact icon-only citation:
-
-```md
-See ::citation{type="analysis_result" collection_id="collection-uuid" result_set_id="result-set-uuid" result_id="result-uuid" short="true"} for details.
-```
+Use `short="true"` for a compact icon-only citation.
 
 Rules:
 - This is inline text, not a block shortcode.
@@ -254,7 +250,6 @@ Rules:
 
 | Type | Required fields | Optional fields |
 |---|---|---|
-| `analysis_result` | `result_set_id`, `result_id` | |
 | `reading_result` | `reading_result_id` | |
 | `block_content` | `agent_run_id`, `transcript_id` | `block_idx` (default `0`), `content_idx` |
 | `agent_run_metadata` | `agent_run_id`, `metadata_key` | |
@@ -438,7 +433,7 @@ The moment you type a number in a markdown section, ask yourself: is there a DQL
 - Do not expect block shortcodes to work inside HTML embeds.
 - Do not rely on inline citations inside code fences or inline code.
 - Do not add `collection_id` to block shortcodes — they use the page's collection automatically. Do include `collection_id` on inline `::citation` shortcodes.
-- Do not omit `LIMIT` in `::dql-table` queries unless the full result set is genuinely needed.
+- Do not omit `LIMIT` in `::dql-table` queries unless every row is genuinely needed.
 
 ### Other mistakes
 

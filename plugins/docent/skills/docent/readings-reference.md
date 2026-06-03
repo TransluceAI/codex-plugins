@@ -32,8 +32,6 @@ You should feel free to iterate on your scripts, but avoid overwriting scripts w
 * Explore a new question on the same dataset -> create a new script
 * Take a different approach to the same question -> create a new script
 
-Note: an obsolete version of the SDK provided an API called `LLMRequest`. If you encounter old code using LLMRequests, you can offer to migrate it to readings.
-
 ## Core API
 
 ### `client.query(collection_id, dql, *, name=None) -> QueryResult`
@@ -367,7 +365,7 @@ Note: analysis plans are grouped by name.
 ```python
 client.default_collection_id = "<collection-uuid>"
 ```
-Used as a fallback when `flush()` resolves which collection to target. Automatically set from `DOCENT_COLLECTION_ID` in `docent.env` or the environment if present. Can also be passed to the `Docent()` constructor as `collection_id`.
+Used as a fallback when `flush()` resolves which collection to target. Automatically set from `DOCENT_COLLECTION_ID` in the SDK-discovered `docent.env` or the environment if present. Can also be passed to the `Docent()` constructor as `collection_id`.
 
 ### Auto-flush
 On first `read()` call, an `atexit` handler is registered. Disable with `client.auto_flush = False`.
@@ -555,7 +553,7 @@ print(f"Proposed {len(category_names)} clusters: {', '.join(category_names)}")
 
 **Stop here.** Run this script, review the proposed clusters, and report them to the user. If the clusters look right, proceed to Phase 2. If not, adjust the summarization prompt or sample and re-run. Re-running is free for unchanged steps (results are cached).
 
-**If something goes wrong:** Check DQL query syntax first (see `dql-reference.md` quirks). Common issues: missing `is_list=True` on aggregated columns, or an empty result set from the sample query. If the clusters are too broad or too narrow, adjust the number of requested categories in the Step 2 prompt or focus the summarization prompt on a more specific aspect of behavior.
+**If something goes wrong:** Check DQL query syntax first (see `dql-reference.md` quirks). Common issues: missing `is_list=True` on aggregated columns, or no rows returned by the sample query. If the clusters are too broad or too narrow, adjust the number of requested categories in the Step 2 prompt or focus the summarization prompt on a more specific aspect of behavior.
 
 ### Phase 2: Classify using the proposed clusters
 

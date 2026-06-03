@@ -17,5 +17,5 @@ This is the root skill for all Docent work. This file is just a table of content
 - For the Readings API (`client.read`, `client.query`, batching, prompts, clustering): `./readings-reference.md`
 - For DQL syntax, schemas, quirks, and example queries: `./dql-reference.md`
 - For the reports API: `./report.md` (only if the user explicitly asks for a report)
-- For ingestion-side data-model and conversion examples: the reference and pattern sections in `./ingestion.md`
+- For ingestion-side data-model and conversion examples: `./ingestion-reference.md`
 - SDK reference is available by visiting [our online documentation](https://docs.transluce.org/llms.txt)

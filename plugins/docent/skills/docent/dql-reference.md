@@ -44,7 +44,6 @@ raw_rows = client.dql_result_to_dicts(result)
 | `transcripts` | Individual transcripts tied to an agent run; stores serialized messages and per-transcript metadata. |
 | `transcript_groups` | Hierarchical groupings of transcripts for runs. |
 | `judge_results` | Scored rubric outputs keyed by agent run and rubric version. |
-| `results` | Individual LLM analysis results from result sets. |
 | `readings` | Reading definitions (template or scripted LLM analysis). |
 | `reading_results` | Results from running readings. |
 | `reading_result_links` | Junction table linking readings to their results. |
@@ -288,7 +287,7 @@ LIMIT 50;
 - **Single statement**: Batches or multiple statements are rejected.
 - **Explicit projection**: Wildcard projections (`*`) are disallowed. List the columns you need.
 - **Collection scoping**: A single query can only access data within a single collection.
-- **Limit enforcement**: Every query is capped at 10,000 rows. Use pagination (`OFFSET`/`LIMIT`) for larger result sets.
+- **Limit enforcement**: Every query is capped at 10,000 rows. Use pagination (`OFFSET`/`LIMIT`) for larger row collections.
 - **JSON performance**: Heavy JSON traversal across large collections can be slow. Prefer top-level fields when available.
 - **Type awareness**: Cast values explicitly when precision matters.
 
