@@ -1,0 +1,11 @@
+{
+  "skill": "behaviors",
+  "documentation": "https://docs.transluce.ai/behaviors",
+  "packages": {
+    "fxtr": "0.0.1a0",
+    "behaviors": "0.0.1a0"
+  },
+  "revision": "216737e51a92f5a0a83f7629af73d5a733fceb19",
+  "modified": false,
+  "content_sha256": "de0ca958d570464776b006b595d0f26b7be280a6c5baf88c46629d2982757eee"
+}
