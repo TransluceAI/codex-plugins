@@ -1,0 +1,23 @@
+{
+  "name": "fxtr",
+  "version": "0.1.0",
+  "description": "Write, run, and view fxtr experiments, and call models from them with behaviors.",
+  "author": {
+    "name": "Transluce",
+    "url": "https://transluce.org"
+  },
+  "homepage": "https://docs.transluce.ai/fxtr",
+  "license": "Apache-2.0",
+  "keywords": ["fxtr", "behaviors", "experiments", "skills"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "fxtr",
+    "shortDescription": "Write, run, and view fxtr experiments.",
+    "longDescription": "Skills for writing, running, and viewing fxtr experiments, and for calling models from them with behaviors.",
+    "developerName": "Transluce",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write"],
+    "websiteURL": "https://docs.transluce.ai/fxtr",
+    "defaultPrompt": ["Use fxtr to set up a new experiment project.", "Use fxtr to sweep this prompt over several models and judge the replies."]
+  }
+}
