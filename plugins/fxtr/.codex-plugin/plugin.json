@@ -1,6 +1,6 @@
 {
   "name": "fxtr",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Write, run, and view fxtr experiments, and call models from them with behaviors.",
   "author": {
     "name": "Transluce",

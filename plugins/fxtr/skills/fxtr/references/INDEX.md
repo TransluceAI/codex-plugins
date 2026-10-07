@@ -8,7 +8,7 @@ in the order of the site's navigation.
 
 - [What is fxtr?](index.mdx): fxtr is an experiment orchestration system for verifiable AI-powered analyses
 - [Installation](installation.mdx): Install fxtr and get started with an example project
-- [Your first experiment](first-experiment.mdx): Write a small experiment with a mapped step and a reduction, launch it, and see how caching works.
+- [Your first experiment](first-experiment.mdx): Design, build, run, and change your first fxtr experiment: a small evaluation of how language models behave.
 
 ## Concepts
 
