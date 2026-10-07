@@ -33,7 +33,7 @@ usually means reading Workflows and steps and Arrays and parallel computations.
 
 | Task                                                                                       | Read                                                                                         |
 | ------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------- |
-| See a small experiment written, launched, and rerun end to end                             | [Your first experiment](references/first-experiment.mdx)                                     |
+| Guide someone new to fxtr through designing and running their first experiment             | the adjacent [first-experiment skill](../first-experiment/SKILL.md)                          |
 | Write or change steps and workflows: signatures, determinism, hermeticity, failures        | [Workflows and steps](references/concepts/workflows-and-steps.mdx)                           |
 | Shape data and sweeps: arrays, handles, mapping, alignment, reductions, replicas           | [Arrays and parallel computations](references/concepts/arrays-and-parallel-computations.mdx) |
 | Filter, select, aggregate, or join arrays, or write SQL over them, in a workflow or a step | [Array queries](references/reference/array-queries.mdx)                                      |
@@ -97,11 +97,13 @@ before [adding one](references/reference/renderers.mdx#adding-a-package-to-a-pro
   many fields, add an `EntityHoverPreview` showing the few that identify it. Records from
   behaviors already have renderers; the [behaviors skill](../behaviors/SKILL.md) says how to
   include them.
-* **Give every step you write an `InvocationPanel`**, registered under the step's name. It
-  becomes the step's default view, in its pane and in its card's preview, and it is handed every
-  invocation the viewer's selection picks out, up to all of a mapped step's. Show one in full and
-  several together (a table with a row per key, a chart, or a summary), loading their outputs
-  with `LoadEach` ([Step panels](references/reference/renderers.mdx#step-panels)).
+* **Give each step an `InvocationPanel`**, registered
+  under the step's name, whenever there is something useful to show beyond the output array itself. The step's pane already shows its arrays as tables, so don't redraw them
+  ([Where a view appears](references/guides/designing-views.mdx#where-a-view-appears)).
+  The panel becomes the step's default view, in its pane and in its card's preview, and it is
+  handed every invocation the viewer's selection picks out, up to all of a mapped step's. Show
+  one in full and several together (a chart or a summary), loading their outputs with `LoadEach`
+  ([Step panels](references/reference/renderers.mdx#step-panels)).
   Wrapping a view of one invocation in `singleInvocation` asks the reader to select one when
   there are several, so keep it for the root workflow and for steps that are neither mapped nor
   replicated.
@@ -115,12 +117,14 @@ before [adding one](references/reference/renderers.mdx#adding-a-package-to-a-pro
 
 ### Running jobs
 
-* **Start the viewer before a launch.** When the user asks for a job to run, first start
-  `uv run fxtr view` in the background, as a long-running process of its own that you don't wait
-  on. When the project's viewer already runs, this only opens it, so it is safe every time. Each
-  launch then opens its job in a new tab of the viewer: tell the user it is there, and report the
-  job's ID and status from the launch's output. A launch that finds no viewer prints
-  `no viewer is running for this project` with the command to start one: start it then.
+* **Start the viewer once.** The first time the user asks for a job to run, start
+  `uv run fxtr view` in the background, as a long-running process of its own (don't wait for it to
+  exit), and before the launch wait until it prints `the viewer is at <url>`. It opens the viewer
+  in the user's browser. Don't run `fxtr view` again for later launches: each run opens another
+  tab. While it runs, each launch shows its job in the viewer the user has open, or in a new tab
+  when none is open: tell the user it is there, and report the job's ID and status from the
+  launch's output. A launch that finds no viewer prints `no viewer is running for this project`
+  with the command to start one: start it then.
 * **Keep the viewer running** across launches and renderer edits. It rebuilds the renderers when
   their sources change, and the open viewer switches to them in place, so never ask the user to
   reload or restart it.
